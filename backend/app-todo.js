@@ -115,6 +115,40 @@ var todos = [
     { id: newId(), title: 'Learn NodeJs' },
     { id: newId(), title: 'Learn Express' },
 ];
+var learningPackages = [
+    {
+        id: 1,
+        title: "Learn TypeScript",
+        description: "An introduction to TypeScript language and its core concepts.",
+        category: "Programming",
+        targetAudience: "Developers",
+        difficulty: 5
+    },
+    {
+        id: 2,
+        title: "Learn NodeJs",
+        description: "Learn the basics of Node.js and how to create a server.",
+        category: "Backend Development",
+        targetAudience: "Web Developers",
+        difficulty: 6
+    },
+    {
+        id: 3,
+        title: "Learn Html",
+        description: "Learn the fundamentals of HTML for web development.",
+        category: "Frontend Development",
+        targetAudience: "Beginners",
+        difficulty: 3
+    },
+    {
+        id: 4,
+        title: "Learn Angular",
+        description: "An introduction to Angular framework for building dynamic web applications.",
+        category: "Frontend Frameworks",
+        targetAudience: "Frontend Developers",
+        difficulty: 7
+    }
+];
 /**
  * @openapi
  * /api/todos:

@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { Request, Response} from 'express';
+import {Request, Response} from 'express';
 
 const app = express();
 app.use(express.json()); // => to parse request body with http header "content-type": "application/json"
@@ -105,10 +105,9 @@ const jsDocOptions = {
 };
 
 const apiDoc = swaggerJsdoc(jsDocOptions);
-console.log('api-doc json:', JSON.stringify(apiDoc, null,2));
+console.log('api-doc json:', JSON.stringify(apiDoc, null, 2));
 
 app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(apiDoc));
-
 
 
 app.get('/api/liveness', (req: Request, res: Response) => {
@@ -123,10 +122,12 @@ interface Todo {
 }
 
 let idGenerator = 1;
+
 function newId() {
     return idGenerator++;
 }
-let todos : Todo[] = [
+
+let todos: Todo[] = [
     {id: newId(), title: 'Learn TypeScript'},
     {id: newId(), title: 'Learn Angular'},
     {id: newId(), title: 'Learn NodeJs'},
@@ -142,6 +143,42 @@ interface LearningPackage {
     targetAudience: string;
     difficulty: number;
 }
+
+let learningPackages: LearningPackage[] = [
+    {
+        id: 1,
+        title: "Learn TypeScript",
+        description: "An introduction to TypeScript language and its core concepts.",
+        category: "Programming",
+        targetAudience: "Developers",
+        difficulty: 5
+    },
+    {
+        id: 2,
+        title: "Learn NodeJs",
+        description: "Learn the basics of Node.js and how to create a server.",
+        category: "Backend Development",
+        targetAudience: "Web Developers",
+        difficulty: 6
+    },
+    {
+        id: 3,
+        title: "Learn Html",
+        description: "Learn the fundamentals of HTML for web development.",
+        category: "Frontend Development",
+        targetAudience: "Beginners",
+        difficulty: 3
+    },
+    {
+        id: 4,
+        title: "Learn Angular",
+        description: "An introduction to Angular framework for building dynamic web applications.",
+        category: "Frontend Frameworks",
+        targetAudience: "Frontend Developers",
+        difficulty: 7
+    }
+];
+
 
 // Follow activity globally :The UserPackageLearning records that a user has committed to learning a package with a daily time target.
 interface UserPackageLearning {
@@ -199,7 +236,7 @@ app.get('/api/todos', (req: Request, res: Response) => {
  *           $ref: '#/components/schemas/Todo'
  */
 app.post('/api/todos', (req: Request, res: Response) => {
-    let item = <Todo> req.body;
+    let item = <Todo>req.body;
     console.log('handle http POST /api/todos', item);
     item.id = newId();
     todos.push(item);
@@ -224,7 +261,7 @@ app.post('/api/todos', (req: Request, res: Response) => {
  *           $ref: '#/components/schemas/Todo'
  */
 app.put('/api/todos', (req: Request, res: Response) => {
-    let item = <Todo> req.body;
+    let item = <Todo>req.body;
     console.log('handle http PUT /api/todos', item);
     const id = item.id;
     const idx = todos.findIndex((x) => x.id === id);
