@@ -295,7 +295,7 @@ app.delete('/api/todos/:id', function (req, res) {
  * @openapi
  * /api/package:
  *   get:
- *     summary: Get all learning packages
+ *     description: Get all learning packages
  *     responses:
  *       200:
  *         description: An array of LearningPackage
@@ -308,6 +308,38 @@ app.delete('/api/todos/:id', function (req, res) {
  */
 app.get('/api/package', function (req, res) {
     res.status(200).json(learningPackages);
+});
+/**
+ * @openapi
+ * /api/package/{id}:
+ *   get:
+ *     description: Get a learning package by its id
+ *     parameters:
+ *         - name: id
+ *           in: path
+ *           required: true
+ *           description: The ID of the Learning Package to get
+ *           schema:
+ *             type: number
+ *     responses:
+ *       200:
+ *         description: the learning package
+ *         schema:
+ *           $ref: '#/components/schemas/LearningPackage'
+ *       404:
+ *         description: Learning Package not found
+ */
+app.get('/api/package/:id', function (req, res) {
+    var id = +req.params['id'];
+    console.log('handle http GET /api/package/:id', id);
+    var idx = learningPackages.findIndex(function (x) { return x.id === id; });
+    if (idx !== -1) {
+        var found = learningPackages[idx];
+        res.send(found);
+    }
+    else {
+        res.status(404).send('Todo entity not found by id:' + id);
+    }
 });
 // app.patch()
 console.log('starting...');
