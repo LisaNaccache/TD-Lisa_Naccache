@@ -398,6 +398,30 @@ app.get('/api/package/:id', (req, res) => {
     }
 });
 
+/**
+ * @openapi
+ * /api/package:
+ *   post:
+ *     description: save a new Learning Package
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LearningPackage'
+ *     responses:
+ *       200:
+ *         description: An array of LearningPackages
+ *         schema:
+ *           $ref: '#/components/schemas/LearningPackage'
+ */
+app.post('/api/package', (req: Request, res: Response) => {
+    let item = <LearningPackage>req.body;
+    console.log('handle http POST /api/package', item);
+    item.id = newId();
+    learningPackages.push(item);
+    res.send(item);
+});
 
 
 // app.patch()

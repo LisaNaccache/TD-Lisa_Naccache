@@ -338,8 +338,32 @@ app.get('/api/package/:id', function (req, res) {
         res.send(found);
     }
     else {
-        res.status(404).send('Todo entity not found by id:' + id);
+        res.status(404).send('Learning Package entity not found by id:' + id);
     }
+});
+/**
+ * @openapi
+ * /api/package:
+ *   post:
+ *     description: save a new Learning Package
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LearningPackage'
+ *     responses:
+ *       200:
+ *         description: An array of LearningPackages
+ *         schema:
+ *           $ref: '#/components/schemas/LearningPackage'
+ */
+app.post('/api/package', function (req, res) {
+    var item = req.body;
+    console.log('handle http POST /api/package', item);
+    item.id = newId();
+    learningPackages.push(item);
+    res.send(item);
 });
 // app.patch()
 console.log('starting...');
