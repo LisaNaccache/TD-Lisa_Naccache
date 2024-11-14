@@ -435,6 +435,28 @@ app.put('/api/package', function (req, res) {
         res.status(404).send('Learning Package entity not found by id:' + id);
     }
 });
+/**
+ * @openapi
+ * /api/package-summaries:
+ *   get:
+ *     description: Get all learning packages with id and title fields only
+ *     responses:
+ *       200:
+ *         description: An array of LearningPackage
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/LearningPackage'
+ */
+app.get('/api/package-summaries', function (req, res) {
+    var packageSummaries = learningPackages.map(function (item) { return ({
+        id: item.id,
+        title: item.title,
+    }); });
+    res.status(200).json(packageSummaries);
+});
 // app.patch()
 console.log('starting...');
 app.listen(3000, function () {
