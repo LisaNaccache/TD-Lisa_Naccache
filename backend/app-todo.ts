@@ -134,7 +134,7 @@ let todos: Todo[] = [
     {id: newId(), title: 'Learn Express'},
 ];
 
-// The LearningPackage represents the overall package, like a subject.
+// The LearningPackage
 interface LearningPackage {
     id: number;
     title: string;
@@ -343,6 +343,27 @@ app.delete('/api/todos/:id', (req, res) => {
     } else {
         res.status(404).send('Todo entity not found by id:' + id);
     }
+});
+
+// Endpoint LearningPackage
+
+/**
+ * @openapi
+ * /api/package:
+ *   get:
+ *     summary: Get all learning packages
+ *     responses:
+ *       200:
+ *         description: An array of LearningPackage
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/LearningPackage'
+ */
+app.get('/api/package', (req, res) => {
+    res.status(200).json(learningPackages);
 });
 
 // app.patch()
