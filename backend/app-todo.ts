@@ -394,9 +394,10 @@ app.get('/api/package/:id', (req, res) => {
         const found = learningPackages[idx];
         res.send(found);
     } else {
-        res.status(404).send('Todo entity not found by id:' + id);
+        res.status(404).send('Learning Package entity not found by id:' + id);
     }
 });
+
 
 
 // app.patch()
