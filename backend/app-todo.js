@@ -79,18 +79,16 @@ var jsDocOptions = {
                         },
                     },
                 },
-                LearningFact: {
+                UserLearningFact: {
                     type: 'object',
                     properties: {
-                        minutesOfTimesReviewed: {
+                        timesReviewed: {
                             type: 'integer',
                         },
-                        confidenceLevelRemember: {
+                        confidenceLevel: {
                             type: 'integer',
-                            minimum: 1,
-                            maximum: 100
                         },
-                        reviewedDate: {
+                        lastReviewedDate: {
                             type: 'string',
                             format: 'date'
                         },

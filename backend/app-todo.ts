@@ -83,18 +83,16 @@ const jsDocOptions = {
                         },
                     },
                 },
-                LearningFact: {
+                UserLearningFact: {
                     type: 'object',
                     properties: {
-                        minutesOfTimesReviewed: {
+                        timesReviewed: {
                             type: 'integer',
                         },
-                        confidenceLevelRemember: {
+                        confidenceLevel: {
                             type: 'integer',
-                            minimum: 1,
-                            maximum: 100
                         },
-                        reviewedDate: {
+                        lastReviewedDate: {
                             type: 'string',
                             format: 'date'
                         },
@@ -134,6 +132,36 @@ let todos : Todo[] = [
     {id: newId(), title: 'Learn NodeJs'},
     {id: newId(), title: 'Learn Express'},
 ];
+
+// The LearningPackage represents the overall package, like a subject.
+interface LearningPackage {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    targetAudience: string;
+    difficulty: number;
+}
+
+// Follow activity globally :The UserPackageLearning records that a user has committed to learning a package with a daily time target.
+interface UserPackageLearning {
+    id: number;
+    userId: number;
+    packageId: number;
+    startDate: Date;
+    expectedEndDate: Date;
+    minutesPerDayObjective: number;
+}
+
+// Follow activity in detail : The UserLearningFact tracks the user's progress for each fact in a package.
+interface UserLearningFact {
+    id: number;
+    userId: number;
+    factId: number;
+    timesReviewed: number;
+    confidenceLevel: number;
+    lastReviewedDate: Date;
+}
 
 /**
  * @openapi
