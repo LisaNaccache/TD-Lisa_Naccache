@@ -48,6 +48,31 @@ const jsDocOptions = {
                 LearningPackage: {
                     type: 'object',
                     properties: {
+                        id: {
+                            type: 'integer',
+                        },
+                        title: {
+                            type: 'string',
+                        },
+                        description: {
+                            type: 'string',
+                        },
+                        category: {
+                            type: 'string',
+                        },
+                        targetAudience: {
+                            type: 'string',
+                        },
+                        difficulty: {
+                            type: 'integer',
+                            minimum: 1,
+                            maximum: 20
+                        },
+                    },
+                },
+                LearningPackageNoId: {
+                    type: 'object',
+                    properties: {
                         title: {
                             type: 'string',
                         },
@@ -408,7 +433,7 @@ app.get('/api/package/:id', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/LearningPackage'
+ *             $ref: '#/components/schemas/LearningPackageNoId'
  *     responses:
  *       200:
  *         description: An array of LearningPackages
@@ -421,6 +446,51 @@ app.post('/api/package', (req: Request, res: Response) => {
     item.id = newId();
     learningPackages.push(item);
     res.send(item);
+});
+
+/**
+ * @openapi
+ * /api/package:
+ *   put:
+ *     description: update an existing Learning Package
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LearningPackage'
+ *     responses:
+ *       200:
+ *         description: An array of LearningPackages
+ *         schema:
+ *           $ref: '#/components/schemas/LearningPackage'
+ */
+app.put('/api/package', (req: Request, res: Response) => {
+    let item = <LearningPackage>req.body;
+    console.log('handle http PUT /api/package', item);
+    const id = item.id;
+    const idx = learningPackages.findIndex((x) => x.id === id);
+    if (idx !== -1) {
+        const found = learningPackages[idx];
+        if (item.title) {
+            found.title = item.title;
+        }
+        if (item.description) {
+            found.description = item.description;
+        }
+        if (item.category) {
+            found.category = item.category;
+        }
+        if (item.targetAudience) {
+            found.targetAudience = item.targetAudience;
+        }
+        if (item.difficulty) {
+            found.difficulty = item.difficulty;
+        }
+        res.send(found);
+    } else {
+        res.status(404).send('Learning Package entity not found by id:' + id);
+    }
 });
 
 
