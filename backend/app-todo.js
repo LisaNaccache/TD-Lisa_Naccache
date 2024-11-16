@@ -368,9 +368,29 @@ app.delete('/api/todos/:id', function (req, res) {
  *               items:
  *                 $ref: '#/components/schemas/LearningPackage'
  */
-app.get('/api/package', function (req, res) {
+app.get('/api/package', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var packages, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, LearningPackage_1.default.findAll()];
+            case 1:
+                packages = _a.sent();
+                res.status(200).json(packages);
+                return [3 /*break*/, 3];
+            case 2:
+                err_1 = _a.sent();
+                console.error('Erreur lors de la récupération des packages :', err_1);
+                res.status(500).json({ error: 'Erreur interne du serveur.' });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
+/*app.get('/api/package', (req, res) => {
     res.status(200).json(learningPackages);
-});
+});*/
 /**
  * @openapi
  * /api/package/{id}:
@@ -421,7 +441,7 @@ app.get('/api/package/:id', function (req, res) {
  *           $ref: '#/components/schemas/LearningPackage'
  */
 app.post('/api/package', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var newPackage, err_1;
+    var newPackage, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -432,8 +452,8 @@ app.post('/api/package', function (req, res) { return __awaiter(void 0, void 0, 
                 res.status(201).json(newPackage);
                 return [3 /*break*/, 3];
             case 2:
-                err_1 = _a.sent();
-                console.error('Erreur lors de la création du package :', err_1);
+                err_2 = _a.sent();
+                console.error('Erreur lors de la création du package :', err_2);
                 res.status(400).json({ error: 'Erreur lors de la validation ou de la création.' });
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];

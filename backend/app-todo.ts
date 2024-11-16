@@ -388,9 +388,18 @@ app.delete('/api/todos/:id', (req, res) => {
  *               items:
  *                 $ref: '#/components/schemas/LearningPackage'
  */
-app.get('/api/package', (req, res) => {
-    res.status(200).json(learningPackages);
+app.get('/api/package', async (req: Request, res: Response) => {
+    try {
+        const packages = await LearningPackage.findAll();
+        res.status(200).json(packages);
+    } catch (err) {
+        console.error('Erreur lors de la récupération des packages :', err);
+        res.status(500).json({ error: 'Erreur interne du serveur.' });
+    }
 });
+/*app.get('/api/package', (req, res) => {
+    res.status(200).json(learningPackages);
+});*/
 
 /**
  * @openapi
