@@ -1,5 +1,6 @@
 import * as express from 'express';
 import {Request, Response} from 'express';
+import LearningPackage from './models/LearningPackage';
 
 const app = express();
 app.use(express.json()); // => to parse request body with http header "content-type": "application/json"
@@ -440,13 +441,22 @@ app.get('/api/package/:id', (req, res) => {
  *         schema:
  *           $ref: '#/components/schemas/LearningPackage'
  */
-app.post('/api/package', (req: Request, res: Response) => {
+app.post('/api/package', async (req: Request, res: Response) => {
+    try {
+        const newPackage = await LearningPackage.create(req.body);
+        res.status(201).json(newPackage);
+    } catch (err) {
+        console.error('Erreur lors de la création du package :', err);
+        res.status(400).json({ error: 'Erreur lors de la validation ou de la création.' });
+    }
+});
+/*app.post('/api/package', (req: Request, res: Response) => {
     let item = <LearningPackage>req.body;
     console.log('handle http POST /api/package', item);
     item.id = newId();
     learningPackages.push(item);
     res.send(item);
-});
+});*/
 
 /**
  * @openapi
