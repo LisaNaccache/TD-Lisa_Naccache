@@ -421,7 +421,21 @@ app.get('/api/package', async (req: Request, res: Response) => {
  *       404:
  *         description: Learning Package not found
  */
-app.get('/api/package/:id', (req, res) => {
+app.get('/api/package/:id', async (req: Request, res: Response) => {
+    try {
+        const id = +req.params.id;
+        const foundPackage = await LearningPackage.findByPk(id);
+        if (foundPackage) {
+            res.status(200).json(foundPackage);
+        } else {
+            res.status(404).json({ error: `Package non trouvé avec l'ID : ${id}` });
+        }
+    } catch (err) {
+        console.error('Erreur lors de la récupération du package :', err);
+        res.status(500).json({ error: 'Erreur interne du serveur.' });
+    }
+});
+/*app.get('/api/package/:id', (req, res) => {
     const id = +req.params['id']
     console.log('handle http GET /api/package/:id', id);
     const idx = learningPackages.findIndex((x) => x.id === id);
@@ -431,7 +445,7 @@ app.get('/api/package/:id', (req, res) => {
     } else {
         res.status(404).send('Learning Package entity not found by id:' + id);
     }
-});
+});*/
 
 /**
  * @openapi

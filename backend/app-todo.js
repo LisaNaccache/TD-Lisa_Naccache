@@ -411,18 +411,43 @@ app.get('/api/package', function (req, res) { return __awaiter(void 0, void 0, v
  *       404:
  *         description: Learning Package not found
  */
-app.get('/api/package/:id', function (req, res) {
-    var id = +req.params['id'];
+app.get('/api/package/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, foundPackage, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                id = +req.params.id;
+                return [4 /*yield*/, LearningPackage_1.default.findByPk(id)];
+            case 1:
+                foundPackage = _a.sent();
+                if (foundPackage) {
+                    res.status(200).json(foundPackage);
+                }
+                else {
+                    res.status(404).json({ error: "Package non trouv\u00E9 avec l'ID : ".concat(id) });
+                }
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _a.sent();
+                console.error('Erreur lors de la récupération du package :', err_2);
+                res.status(500).json({ error: 'Erreur interne du serveur.' });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
+/*app.get('/api/package/:id', (req, res) => {
+    const id = +req.params['id']
     console.log('handle http GET /api/package/:id', id);
-    var idx = learningPackages.findIndex(function (x) { return x.id === id; });
+    const idx = learningPackages.findIndex((x) => x.id === id);
     if (idx !== -1) {
-        var found = learningPackages[idx];
+        const found = learningPackages[idx];
         res.send(found);
-    }
-    else {
+    } else {
         res.status(404).send('Learning Package entity not found by id:' + id);
     }
-});
+});*/
 /**
  * @openapi
  * /api/package:
@@ -441,7 +466,7 @@ app.get('/api/package/:id', function (req, res) {
  *           $ref: '#/components/schemas/LearningPackage'
  */
 app.post('/api/package', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var newPackage, err_2;
+    var newPackage, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -452,8 +477,8 @@ app.post('/api/package', function (req, res) { return __awaiter(void 0, void 0, 
                 res.status(201).json(newPackage);
                 return [3 /*break*/, 3];
             case 2:
-                err_2 = _a.sent();
-                console.error('Erreur lors de la création du package :', err_2);
+                err_3 = _a.sent();
+                console.error('Erreur lors de la création du package :', err_3);
                 res.status(400).json({ error: 'Erreur lors de la validation ou de la création.' });
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
