@@ -1,7 +1,9 @@
 import sequelize from './database';
 import LearningPackage from './models/LearningPackage';
+import LearningFact from './models/LearningFact';
 
 console.log('Modèle enregistré :', LearningPackage === sequelize.models.LearningPackage);
+console.log('Modèle enregistré :', LearningFact === sequelize.models.LearningFact);
 
 sequelize.sync({ force: true }) // `force: true` recree les tables a chaque execution
     .then(() => {
