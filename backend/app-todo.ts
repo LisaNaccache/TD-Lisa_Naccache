@@ -394,7 +394,7 @@ app.get('/api/package', async (req: Request, res: Response) => {
         res.status(200).json(packages);
     } catch (err) {
         console.error('Erreur lors de la récupération des packages :', err);
-        res.status(500).json({ error: 'Erreur interne du serveur.' });
+        res.status(500).json({error: 'Erreur interne du serveur.'});
     }
 });
 /*app.get('/api/package', (req, res) => {
@@ -428,11 +428,11 @@ app.get('/api/package/:id', async (req: Request, res: Response) => {
         if (foundPackage) {
             res.status(200).json(foundPackage);
         } else {
-            res.status(404).json({ error: `Package non trouvé avec l'ID : ${id}` });
+            res.status(404).json({error: `Package non trouvé avec l'ID : ${id}`});
         }
     } catch (err) {
         console.error('Erreur lors de la récupération du package :', err);
-        res.status(500).json({ error: 'Erreur interne du serveur.' });
+        res.status(500).json({error: 'Erreur interne du serveur.'});
     }
 });
 /*app.get('/api/package/:id', (req, res) => {
@@ -470,7 +470,7 @@ app.post('/api/package', async (req: Request, res: Response) => {
         res.status(201).json(newPackage);
     } catch (err) {
         console.error('Erreur lors de la création du package :', err);
-        res.status(400).json({ error: 'Erreur lors de la validation ou de la création.' });
+        res.status(400).json({error: 'Erreur lors de la validation ou de la création.'});
     }
 });
 /*app.post('/api/package', (req: Request, res: Response) => {
@@ -483,22 +483,75 @@ app.post('/api/package', async (req: Request, res: Response) => {
 
 /**
  * @openapi
- * /api/package:
+ * /api/package/{id}:
  *   put:
- *     description: update an existing Learning Package
+ *     description: Update an existing Learning Package
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: The ID of the Learning Package to update
+ *         schema:
+ *           type: number
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/LearningPackage'
+ *             $ref: '#/components/schemas/LearningPackageNoId'
  *     responses:
  *       200:
- *         description: An array of LearningPackages
- *         schema:
- *           $ref: '#/components/schemas/LearningPackage'
+ *         description: Learning Package updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LearningPackageNoId'
+ *       400:
+ *         description: Invalid ID
+ *       404:
+ *         description: Learning Package not found
+ *       500:
+ *         description: Server error
  */
-app.put('/api/package', (req: Request, res: Response) => {
+app.put('/api/package/:id', async (req: Request, res: Response) => {
+    const {id} = req.params;
+    const {title, description, category, targetAudience, difficulty} = req.body;
+
+    try {
+        if (!id) {
+            res.status(400).json({error: 'ID invalide ou manquant.'});
+        }
+
+        const learningPackage = await LearningPackage.findByPk(id);
+
+        if (!learningPackage) {
+            res.status(404).json({message: 'Learning package non trouve'});
+        } else {
+            if (learningPackage) {
+                learningPackage.set({
+                    title,
+                    description,
+                    category,
+                    targetAudience,
+                    difficulty,
+                });
+            }
+
+            if (learningPackage) {
+                await learningPackage.save();
+            }
+
+            res.status(200).json({
+                message: 'Learning package mis à jour avec succes',
+                data: learningPackage,
+            });
+        }
+    } catch (error) {
+        console.error('Erreur lors de la mise à jour du learning package', error);
+        res.status(500).json({message: 'Erreur serveur', error: error.message});
+    }
+});
+/*app.put('/api/package', (req: Request, res: Response) => {
     let item = <LearningPackage>req.body;
     console.log('handle http PUT /api/package', item);
     const id = item.id;
@@ -525,6 +578,7 @@ app.put('/api/package', (req: Request, res: Response) => {
         res.status(404).send('Learning Package entity not found by id:' + id);
     }
 });
+*/
 
 /**
  * @openapi
@@ -541,13 +595,13 @@ app.put('/api/package', (req: Request, res: Response) => {
  *               items:
  *                 $ref: '#/components/schemas/LearningPackage'
  */
-app.get('/api/package-summaries', (req, res) => {
+/*app.get('/api/package-summaries', (req, res) => {
     const packageSummaries = learningPackages.map(item => ({
         id: item.id,
         title: item.title,
     }));
     res.status(200).json(packageSummaries);
-});
+});*/
 
 
 // app.patch()

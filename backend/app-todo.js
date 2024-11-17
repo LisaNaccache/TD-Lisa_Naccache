@@ -494,28 +494,93 @@ app.post('/api/package', function (req, res) { return __awaiter(void 0, void 0, 
 });*/
 /**
  * @openapi
- * /api/package:
+ * /api/package/{id}:
  *   put:
- *     description: update an existing Learning Package
+ *     description: Update an existing Learning Package
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: The ID of the Learning Package to update
+ *         schema:
+ *           type: number
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/LearningPackage'
+ *             $ref: '#/components/schemas/LearningPackageNoId'
  *     responses:
  *       200:
- *         description: An array of LearningPackages
- *         schema:
- *           $ref: '#/components/schemas/LearningPackage'
+ *         description: Learning Package updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LearningPackageNoId'
+ *       400:
+ *         description: Invalid ID
+ *       404:
+ *         description: Learning Package not found
+ *       500:
+ *         description: Server error
  */
-app.put('/api/package', function (req, res) {
-    var item = req.body;
+app.put('/api/package/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, _a, title, description, category, targetAudience, difficulty, learningPackage, error_1;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                id = req.params.id;
+                _a = req.body, title = _a.title, description = _a.description, category = _a.category, targetAudience = _a.targetAudience, difficulty = _a.difficulty;
+                _b.label = 1;
+            case 1:
+                _b.trys.push([1, 7, , 8]);
+                if (!id) {
+                    res.status(400).json({ error: 'ID invalide ou manquant.' });
+                }
+                return [4 /*yield*/, LearningPackage_1.default.findByPk(id)];
+            case 2:
+                learningPackage = _b.sent();
+                if (!!learningPackage) return [3 /*break*/, 3];
+                res.status(404).json({ message: 'Learning package non trouve' });
+                return [3 /*break*/, 6];
+            case 3:
+                if (learningPackage) {
+                    learningPackage.set({
+                        title: title,
+                        description: description,
+                        category: category,
+                        targetAudience: targetAudience,
+                        difficulty: difficulty,
+                    });
+                }
+                if (!learningPackage) return [3 /*break*/, 5];
+                return [4 /*yield*/, learningPackage.save()];
+            case 4:
+                _b.sent();
+                _b.label = 5;
+            case 5:
+                res.status(200).json({
+                    message: 'Learning package mis à jour avec succes',
+                    data: learningPackage,
+                });
+                _b.label = 6;
+            case 6: return [3 /*break*/, 8];
+            case 7:
+                error_1 = _b.sent();
+                console.error('Erreur lors de la mise à jour du learning package', error_1);
+                res.status(500).json({ message: 'Erreur serveur', error: error_1.message });
+                return [3 /*break*/, 8];
+            case 8: return [2 /*return*/];
+        }
+    });
+}); });
+/*app.put('/api/package', (req: Request, res: Response) => {
+    let item = <LearningPackage>req.body;
     console.log('handle http PUT /api/package', item);
-    var id = item.id;
-    var idx = learningPackages.findIndex(function (x) { return x.id === id; });
+    const id = item.id;
+    const idx = learningPackages.findIndex((x) => x.id === id);
     if (idx !== -1) {
-        var found = learningPackages[idx];
+        const found = learningPackages[idx];
         if (item.title) {
             found.title = item.title;
         }
@@ -532,11 +597,11 @@ app.put('/api/package', function (req, res) {
             found.difficulty = item.difficulty;
         }
         res.send(found);
-    }
-    else {
+    } else {
         res.status(404).send('Learning Package entity not found by id:' + id);
     }
 });
+*/
 /**
  * @openapi
  * /api/package-summaries:
@@ -552,13 +617,13 @@ app.put('/api/package', function (req, res) {
  *               items:
  *                 $ref: '#/components/schemas/LearningPackage'
  */
-app.get('/api/package-summaries', function (req, res) {
-    var packageSummaries = learningPackages.map(function (item) { return ({
+/*app.get('/api/package-summaries', (req, res) => {
+    const packageSummaries = learningPackages.map(item => ({
         id: item.id,
         title: item.title,
-    }); });
+    }));
     res.status(200).json(packageSummaries);
-});
+});*/
 // app.patch()
 console.log('starting...');
 app.listen(3000, function () {
