@@ -37,11 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
+var swaggerJsdoc = require("swagger-jsdoc"); // * as swaggerJsdoc from 'swagger-jsdoc'
+var swaggerUi = require("swagger-ui-express");
 var LearningPackage_1 = require("./models/LearningPackage");
 var app = express();
 app.use(express.json()); // => to parse request body with http header "content-type": "application/json"
-var swaggerJsdoc = require("swagger-jsdoc"); // * as swaggerJsdoc from 'swagger-jsdoc'
-var swaggerUi = require("swagger-ui-express");
 var jsDocOptions = {
     definition: {
         openapi: '3.0.0', // Specify the OpenAPI version
@@ -142,6 +142,24 @@ var jsDocOptions = {
                     },
                 },
                 UserLearningFact: {
+                    type: 'object',
+                    properties: {
+                        id: {
+                            type: 'integer',
+                        },
+                        timesReviewed: {
+                            type: 'integer',
+                        },
+                        confidenceLevel: {
+                            type: 'integer',
+                        },
+                        lastReviewedDate: {
+                            type: 'string',
+                            format: 'date'
+                        },
+                    },
+                },
+                UserLearningFactNoId: {
                     type: 'object',
                     properties: {
                         timesReviewed: {
@@ -623,6 +641,19 @@ app.put('/api/package/:id', function (req, res) { return __awaiter(void 0, void 
         title: item.title,
     }));
     res.status(200).json(packageSummaries);
+});*/
+// Endpoints Learningfact
+/*app.post('/api/package/:id/fact', async (req: Request, res: Response) => {
+    try {
+        const newFact = await LearningFact.create(req.body);
+        res.status(201).json(newFact);
+    } catch (err) {
+        console.error('Erreur lors de la création du fact :', err);
+        res.status(500).json({error: 'Erreur interne du serveur.'});
+
+        console.error('Erreur lors de la création du package :', err);
+        res.status(400).json({error: 'Erreur lors de la validation ou de la création.'});
+    }
 });*/
 // app.patch()
 console.log('starting...');

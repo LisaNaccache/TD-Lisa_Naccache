@@ -1,14 +1,13 @@
 import * as express from 'express';
 import {Request, Response} from 'express';
-import LearningPackage from './models/LearningPackage';
-
-const app = express();
-app.use(express.json()); // => to parse request body with http header "content-type": "application/json"
-
-
 import swaggerJsdoc = require('swagger-jsdoc'); // * as swaggerJsdoc from 'swagger-jsdoc'
 import swaggerUi = require('swagger-ui-express');
 
+import LearningPackage from './models/LearningPackage';
+import LearningFact from "./models/LearningFact";
+
+const app = express();
+app.use(express.json()); // => to parse request body with http header "content-type": "application/json"
 
 const jsDocOptions = {
     definition: {
@@ -110,6 +109,24 @@ const jsDocOptions = {
                     },
                 },
                 UserLearningFact: {
+                    type: 'object',
+                    properties: {
+                        id: {
+                            type: 'integer',
+                        },
+                        timesReviewed: {
+                            type: 'integer',
+                        },
+                        confidenceLevel: {
+                            type: 'integer',
+                        },
+                        lastReviewedDate: {
+                            type: 'string',
+                            format: 'date'
+                        },
+                    },
+                },
+                UserLearningFactNoId: {
                     type: 'object',
                     properties: {
                         timesReviewed: {
@@ -604,8 +621,21 @@ app.put('/api/package/:id', async (req: Request, res: Response) => {
 });*/
 
 
-// app.patch()
+// Endpoints Learningfact
+/*app.post('/api/package/:id/fact', async (req: Request, res: Response) => {
+    try {
+        const newFact = await LearningFact.create(req.body);
+        res.status(201).json(newFact);
+    } catch (err) {
+        console.error('Erreur lors de la création du fact :', err);
+        res.status(500).json({error: 'Erreur interne du serveur.'});
 
+        console.error('Erreur lors de la création du package :', err);
+        res.status(400).json({error: 'Erreur lors de la validation ou de la création.'});
+    }
+});*/
+
+// app.patch()
 
 console.log('starting...');
 app.listen(3000, () => {
