@@ -40,8 +40,10 @@ var express = require("express");
 var swaggerJsdoc = require("swagger-jsdoc"); // * as swaggerJsdoc from 'swagger-jsdoc'
 var swaggerUi = require("swagger-ui-express");
 var LearningPackage_1 = require("./models/LearningPackage");
+var cors = require('cors');
 var app = express();
 app.use(express.json()); // => to parse request body with http header "content-type": "application/json"
+app.use(cors());
 var jsDocOptions = {
     definition: {
         openapi: '3.0.0', // Specify the OpenAPI version

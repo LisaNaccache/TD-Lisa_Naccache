@@ -5,9 +5,11 @@ import swaggerUi = require('swagger-ui-express');
 
 import LearningPackage from './models/LearningPackage';
 import LearningFact from "./models/LearningFact";
+const cors = require('cors');
 
 const app = express();
 app.use(express.json()); // => to parse request body with http header "content-type": "application/json"
+app.use(cors())
 
 const jsDocOptions = {
     definition: {
