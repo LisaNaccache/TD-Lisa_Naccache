@@ -1,8 +1,7 @@
-<p>todo-list-page works!</p>
+<h1>Todos</h1>
 
 <button (click)="onClickReload()" class="btn btn-small btn-outline-info">Load Todos</button>
 
-
 <ul>
-  <li *ngFor="let todo of todos"> {{todo.id}} </li>
+  <li *ngFor="let todo of todos"> {{todo.id}} : {{todo.title}}</li>
 </ul>

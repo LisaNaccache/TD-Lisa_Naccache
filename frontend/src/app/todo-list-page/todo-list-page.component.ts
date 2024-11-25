@@ -18,7 +18,7 @@ export class TodoListPageComponent {
   todos: TodoDTO[] = [];
 
   onClickReload() {
-    this.todoService.getAllTodoDTOs().subscribe({
+    this.todoService.getTodos().subscribe({
       next: data => {
         console.log('finished loaded Todos, saving to component field');
         this.todos = data;
