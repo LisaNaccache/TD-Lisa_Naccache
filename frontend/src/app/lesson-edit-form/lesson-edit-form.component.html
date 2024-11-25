@@ -1,0 +1,52 @@
+<div class="container">
+  <h1>Edit Lesson</h1>
+
+  <form [formGroup]="lessonForm" (ngSubmit)="onClickSubmit()">
+
+    <div class="form-group">
+      <label for="title" [class]="lessonForm.get('title')?.invalid ? 'text-danger' : ''">Title</label>
+      <input type="text" class="form-control" id="title" placeholder="Enter title" formControlName="title">
+    </div>
+
+    <div class="form-group">
+      <label for="description" [class]="lessonForm.get('description')?.invalid ? 'text-danger' : ''">Description</label>
+      <textarea class="form-control" id="description" rows="3" placeholder="Enter description"
+                formControlName="description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="category">Category</label>
+      <input type="text" class="form-control" id="category" placeholder="Enter category" formControlName="category">
+    </div>
+
+    <div class="form-group">
+      <label for="level" ngbTooltip="Enter value between 1(basics) to 10(advanced)">Level</label>
+      <input type="number" class="form-control" id="level" placeholder="Enter level" min="1" max="10"
+             formControlName="level">
+    </div>
+
+    <div class="form-group">
+      <label for="prerequisite">Prerequisite</label>
+      <input type="text" class="form-control" id="prerequisite" placeholder="Enter prerequisite"
+             formControlName="prerequisite">
+    </div>
+
+    <div class="form-group">
+      <label for="tags" ngbTooltip="Enter tags, separated by commas">Tags</label>
+      <input type="text" class="form-control" id="tags" placeholder="Enter tags" formControlName="tags">
+    </div>
+
+    <div class="form-group">
+      <label for="copyright">Copyright</label>
+      <input type="text" class="form-control" id="copyright" placeholder="Enter copyright"
+             formControlName="copyright">
+    </div>
+
+    <div class="row mt-2"><label class="col-md-2"></label>
+      <button type="button" class="btn btn-primary col-md-2" (click)="onClickSubmit()" [disabled]="!lessonForm.valid">
+        Submit
+      </button>
+      <span *ngIf="lessonForm.invalid" class="col-md-8 text-danger"> Please fill out all required fields. </span></div>
+
+  </form>
+</div>
