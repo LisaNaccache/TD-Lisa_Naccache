@@ -116,7 +116,7 @@ const jsDocOptions = {
                         id: {
                             type: 'integer',
                         },
-                        timesReviewed: {
+                        reviewCount: {
                             type: 'integer',
                         },
                         confidenceLevel: {
@@ -131,7 +131,7 @@ const jsDocOptions = {
                 UserLearningFactNoId: {
                     type: 'object',
                     properties: {
-                        timesReviewed: {
+                        reviewCount: {
                             type: 'integer',
                         },
                         confidenceLevel: {
@@ -154,6 +154,10 @@ console.log('api-doc json:', JSON.stringify(apiDoc, null, 2));
 
 app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(apiDoc));
 
+/*app.get('/swagger.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(apiDoc);
+});*/
 
 app.get('/api/liveness', (req: Request, res: Response) => {
     res.send('OK !!!');
@@ -240,7 +244,7 @@ interface UserLearningFact {
     id: number;
     userId: number;
     factId: number;
-    timesReviewed: number;
+    reviewCount: number;
     confidenceLevel: number;
     lastReviewedDate: Date;
 }

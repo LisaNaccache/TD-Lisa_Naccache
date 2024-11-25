@@ -184,6 +184,10 @@ var jsDocOptions = {
 var apiDoc = swaggerJsdoc(jsDocOptions);
 console.log('api-doc json:', JSON.stringify(apiDoc, null, 2));
 app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(apiDoc));
+/*app.get('/swagger.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(apiDoc);
+});*/
 app.get('/api/liveness', function (req, res) {
     res.send('OK !!!');
 });
