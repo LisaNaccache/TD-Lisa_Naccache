@@ -1,8 +1,8 @@
 # Backend - Node.js API
 
-![Node.js](https://img.shields.io/badge/Node.js-green)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-red)
+![Node.js](https://img.shields.io/badge/Node.js-v16%2B-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v12%2B-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-red)
 
 ## Description
 
