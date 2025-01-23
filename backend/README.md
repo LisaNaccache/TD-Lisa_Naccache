@@ -68,7 +68,9 @@ npm run test-db
 
 ## Diagram
 
-![](schema_table.png)
+Below is the schema representation of the database tables:
+
+![](assets/schema_table.png)
 
 ---
 
@@ -77,3 +79,14 @@ npm run test-db
 **Get all learing package :**
 
 > curl -X GET http://localhost:3000/api/package
+
+---
+
+## Swagger Screenshot
+
+>### Endpoints :
+>![](assets/swagger_endpoints.png)
+
+>###  Schema :
+>![](assets/swagger_schema.png)
+
