@@ -1,4 +1,3 @@
-//import * as express from 'express';
 import express from 'express';
 import {Request, Response} from 'express';
 import swaggerJsdoc = require('swagger-jsdoc');
@@ -180,50 +179,6 @@ let todos: Todo[] = [
 ];
 
 // The LearningPackage
-interface LearningPackage {
-    id: number;
-    title: string;
-    description: string;
-    category: string;
-    targetAudience: string;
-    difficulty: number;
-}
-
-let learningPackages: LearningPackage[] = [
-    {
-        id: 1,
-        title: "Learn TypeScript",
-        description: "An introduction to TypeScript language and its core concepts.",
-        category: "Programming",
-        targetAudience: "Developers",
-        difficulty: 5
-    },
-    {
-        id: 2,
-        title: "Learn NodeJs",
-        description: "Learn the basics of Node.js and how to create a server.",
-        category: "Backend Development",
-        targetAudience: "Web Developers",
-        difficulty: 6
-    },
-    {
-        id: 3,
-        title: "Learn Html",
-        description: "Learn the fundamentals of HTML for web development.",
-        category: "Frontend Development",
-        targetAudience: "Beginners",
-        difficulty: 3
-    },
-    {
-        id: 4,
-        title: "Learn Angular",
-        description: "An introduction to Angular framework for building dynamic web applications.",
-        category: "Frontend Frameworks",
-        targetAudience: "Frontend Developers",
-        difficulty: 7
-    }
-];
-
 
 // Follow activity globally :The UserPackageLearning records that a user has committed to learning a package with a daily time target.
 interface UserPackageLearning {
