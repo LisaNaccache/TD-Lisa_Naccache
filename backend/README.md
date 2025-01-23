@@ -43,9 +43,9 @@ npm run test-db
 >- **`test-database.ts`** : Optional file to test the database connection.
 
 > ***Models***
->- **`models/`** : Includes the TypeScript models used in the application:
-    - **`LearningPackage.ts`** : Model representing "Learning Packages".
-    - **`LearningFact.ts`** : Model representing "Learning Facts".
+>- **`models/`** : *Includes the TypeScript models used in the application*
+>- **`LearningPackage.ts`** : Model representing "Learning Packages".
+>- **`LearningFact.ts`** : Model representing "Learning Facts".
 
 > ***Configuration Files***
 >- **`package.json`** : Lists dependencies and scripts.
@@ -54,3 +54,7 @@ npm run test-db
 >- **`swagger.json`** : Swagger documentation.
 
 ---
+
+## Diagram
+
+![](schema_table.png)
