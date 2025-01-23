@@ -5,7 +5,7 @@ const sequelize = new Sequelize('LearningFactDb', 'learningDbUser', 'admin', {
     dialect: 'postgres',
 });
 
-// Tester la connexion
+// Test the connection
 sequelize.authenticate()
     .then(() => console.log('PostgreSQL connection successful.'))
     .catch(err => console.error('Unable to connect :', err));
