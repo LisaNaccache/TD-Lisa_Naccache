@@ -1,6 +1,7 @@
-import * as express from 'express';
+//import * as express from 'express';
+import express from 'express';
 import {Request, Response} from 'express';
-import swaggerJsdoc = require('swagger-jsdoc'); // * as swaggerJsdoc from 'swagger-jsdoc'
+import swaggerJsdoc = require('swagger-jsdoc');
 import swaggerUi = require('swagger-ui-express');
 
 import LearningPackage from './models/LearningPackage';
@@ -153,11 +154,6 @@ const apiDoc = swaggerJsdoc(jsDocOptions);
 console.log('api-doc json:', JSON.stringify(apiDoc, null, 2));
 
 app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(apiDoc));
-
-/*app.get('/swagger.json', (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(apiDoc);
-});*/
 
 app.get('/api/liveness', (req: Request, res: Response) => {
     res.send('OK !!!');
@@ -416,8 +412,8 @@ app.get('/api/package', async (req: Request, res: Response) => {
         const packages = await LearningPackage.findAll();
         res.status(200).json(packages);
     } catch (err) {
-        console.error('Erreur lors de la récupération des packages :', err);
-        res.status(500).json({error: 'Erreur interne du serveur.'});
+        console.error('Package recovery error :', err);
+        res.status(500).json({error: 'Internal server error.'});
     }
 });
 /*app.get('/api/package', (req, res) => {
@@ -451,11 +447,11 @@ app.get('/api/package/:id', async (req: Request, res: Response) => {
         if (foundPackage) {
             res.status(200).json(foundPackage);
         } else {
-            res.status(404).json({error: `Package non trouvé avec l'ID : ${id}`});
+            res.status(404).json({error: `Package not found with ID : ${id}`});
         }
     } catch (err) {
-        console.error('Erreur lors de la récupération du package :', err);
-        res.status(500).json({error: 'Erreur interne du serveur.'});
+        console.error('Package recovery error :', err);
+        res.status(500).json({error: 'Internal server error.'});
     }
 });
 /*app.get('/api/package/:id', (req, res) => {
@@ -492,8 +488,8 @@ app.post('/api/package', async (req: Request, res: Response) => {
         const newPackage = await LearningPackage.create(req.body);
         res.status(201).json(newPackage);
     } catch (err) {
-        console.error('Erreur lors de la création du package :', err);
-        res.status(400).json({error: 'Erreur lors de la validation ou de la création.'});
+        console.error('Package creation error :', err);
+        res.status(400).json({error: 'Error during validation or creation.'});
     }
 });
 /*app.post('/api/package', (req: Request, res: Response) => {
@@ -542,13 +538,13 @@ app.put('/api/package/:id', async (req: Request, res: Response) => {
 
     try {
         if (!id) {
-            res.status(400).json({error: 'ID invalide ou manquant.'});
+            res.status(400).json({error: 'Invalid or missing ID.'});
         }
 
         const learningPackage = await LearningPackage.findByPk(id);
 
         if (!learningPackage) {
-            res.status(404).json({message: 'Learning package non trouve'});
+            res.status(404).json({message: 'Learning package not found'});
         } else {
             if (learningPackage) {
                 learningPackage.set({
@@ -565,13 +561,13 @@ app.put('/api/package/:id', async (req: Request, res: Response) => {
             }
 
             res.status(200).json({
-                message: 'Learning package mis à jour avec succes',
+                message: 'Learning package successfully updated',
                 data: learningPackage,
             });
         }
     } catch (error) {
-        console.error('Erreur lors de la mise à jour du learning package', error);
-        res.status(500).json({message: 'Erreur serveur', error: error.message});
+        console.error('Error updating learning package', error);
+        res.status(500).json({error: 'Internal server error.'});
     }
 });
 /*app.put('/api/package', (req: Request, res: Response) => {
@@ -626,20 +622,8 @@ app.put('/api/package/:id', async (req: Request, res: Response) => {
     res.status(200).json(packageSummaries);
 });*/
 
+// Endpoint LearningFact
 
-// Endpoints Learningfact
-/*app.post('/api/package/:id/fact', async (req: Request, res: Response) => {
-    try {
-        const newFact = await LearningFact.create(req.body);
-        res.status(201).json(newFact);
-    } catch (err) {
-        console.error('Erreur lors de la création du fact :', err);
-        res.status(500).json({error: 'Erreur interne du serveur.'});
-
-        console.error('Erreur lors de la création du package :', err);
-        res.status(400).json({error: 'Erreur lors de la validation ou de la création.'});
-    }
-});*/
 
 // app.patch()
 
