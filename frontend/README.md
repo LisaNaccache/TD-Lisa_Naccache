@@ -1,27 +1,101 @@
-# Frontend
+# Frontend - Angular Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
+![Node.js](https://img.shields.io/badge/Node.js-v16%2B-green)
+![Angular](https://img.shields.io/badge/Angular-18.2.0-red)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.3-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.5.2-orange)
 
-## Development server
+## Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This project serves as the frontend part of the application. It is built with Angular and includes several components to manage Todos and dynamic number manipulations. It interacts with the backend API for data exchange.
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
 
-## Build
+### Prerequisites
+- **Node.js**: v16 or higher
+- **Angular CLI**: v18.2.10
+  - Install it globally using:
+    ```bash
+    npm install -g @angular/cli@18.2.10
+    ```
+- **NPM**: Installed automatically with Node.js
+- **TypeScript**: v5.5.2
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Install dependencies
+- npm install
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Run scripts
 
-## Running end-to-end tests
+### Start the application
+ng serve
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Default address: http://localhost:4200
 
-## Further help
+### Build the application
+ng build
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## Database Requirements
+The frontend application interacts with a backend API that relies on a PostgreSQL database. Ensure that the backend is set up and running before starting the frontend:
+
+1. Install and configure PostgreSQL.
+2. Run the backend server to make the API available.
+3. Update the proxy.conf.json file if the backend runs on a custom port.
+
+## Project Structure
+
+### Key Files and Folders :
+
+> ***Components***
+>- **`todos`** : Loads the list of Todos from the backend API and displays them.
+>- **`lesson-edit-form`** : Displays a form to edit lesson details.
+>- **`test-page1`** : A dynamic component to manipulate and display a number `(numberValue)`.
+>- **`navbar`** : Implements the navigation bar for the application.
+
+> ***Services***
+>- **`todo.service.ts`** : Handles API interactions for Todo-related operations.
+>- **`user-settings.service.ts`** : Manages user settings in the application.
+
+> ***Routes***
+>- **`app.routes.ts`** : Defines the application's routes for navigation between components.
+
+> ***Data Models and Interfaces***
+>- **`interfaces/todo-dto.ts`** : Data Transfer Object interface for the Todo component.
+>- **`models/todo.model.ts`** : Defines the Todo model structure.
+
+> ***Generated API Client***
+>- **`generated/`** : Contains files automatically generated using Swagger Codegen to simplify interaction with the backend API.
+>- These files were generated using: 
+> ```java -jar swagger-codegen-cli-3.0.63.jar generate -h```
+
+> ***Configuration Files***
+>- **`proxy.conf.json`** : Used for configuring a proxy to route API calls to the backend during development.
+>- **`package.json`**: Defines project metadata, dependencies, and scripts.
+>- **`package-lock.json`**: Ensures consistent dependency versions.
+>- **`tsconfig.json`**: Global TypeScript configuration for the project.
+>- **`tsconfig.app.json`**: TypeScript configuration for application code.
+>- **`tsconfig.spec.json`**: TypeScript configuration for test files.
+
+---
+
+## Features
+- Dynamic manipulation of numbers in `test-page1` using multiple input methods and buttons.
+- Integration with backend `APIs` for Todos and Lessons.
+- `Generated API client` for easier backend interaction. 
+- Modular structure for easy scalability.
+
+---
+
+## Testing Files
+
+The following files are exclusively used for testing purposes:
+
+- test-page1.component.spec.ts
+- todo-list-page.component.spec.ts
+
+---
