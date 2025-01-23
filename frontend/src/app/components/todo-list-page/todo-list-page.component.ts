@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
-import {TodoService} from '../todo.service';
+import {TodoService} from '../../services/todo.service';
 import {NgForOf} from '@angular/common';
-import {TodoDTO} from '../interfaces/todo-dto';
+import {TodoDto} from '../../shared/interfaces/todo-dto';
 
 @Component({
   selector: 'app-todo-list-page',
@@ -15,7 +15,7 @@ import {TodoDTO} from '../interfaces/todo-dto';
 export class TodoListPageComponent {
 
   readonly todoService = inject(TodoService);
-  todos: TodoDTO[] = [];
+  todos: TodoDto[] = [];
 
   onClickReload() {
     this.todoService.getTodos().subscribe({

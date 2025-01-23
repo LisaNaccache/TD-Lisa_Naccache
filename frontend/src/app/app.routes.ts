@@ -1,10 +1,10 @@
 import {Routes} from '@angular/router';
-import {TodoListPageComponent} from './todo-list-page/todo-list-page.component';
-import {LessonEditFormComponent} from './lesson-edit-form/lesson-edit-form.component';
-import {LessonListPageComponent} from './lesson-list-page/lesson-list-page.component';
-import {LessonSearchPageComponent} from './lesson-search-page/lesson-search-page.component';
-import {LessonDetailPageComponent} from './lesson-detail-page/lesson-detail-page.component';
-import {TestPage1Component} from './test-page1/test-page1.component';
+import {TodoListPageComponent} from './components/todo-list-page/todo-list-page.component';
+import {LessonEditFormComponent} from './components/lesson-edit-form/lesson-edit-form.component';
+import {LessonListPageComponent} from './components/lesson-list-page/lesson-list-page.component';
+import {LessonSearchPageComponent} from './components/lesson-search-page/lesson-search-page.component';
+import {LessonDetailPageComponent} from './components/lesson-detail-page/lesson-detail-page.component';
+import {TestPage1Component} from './components/test-page1/test-page1.component';
 
 export const routes: Routes = [
   {path: 'todos', component: TodoListPageComponent},

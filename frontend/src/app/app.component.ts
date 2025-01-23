@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {LessonEditFormComponent} from "./lesson-edit-form/lesson-edit-form.component";
-import {LessonSearchPageComponent} from "./lesson-search-page/lesson-search-page.component";
-import {MenuNavBarComponent} from "./menu-nav-bar/menu-nav-bar.component";
+import {LessonEditFormComponent} from "./components/lesson-edit-form/lesson-edit-form.component";
+import {LessonSearchPageComponent} from "./components/lesson-search-page/lesson-search-page.component";
+import {MenuNavBarComponent} from "./components/menu-nav-bar/menu-nav-bar.component";
 import {NgbDropdown, NgbDropdownMenu, NgbDropdownToggle} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 

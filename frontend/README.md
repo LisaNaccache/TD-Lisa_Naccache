@@ -54,20 +54,20 @@ The frontend application interacts with a backend API that relies on a PostgreSQ
 >- **`navbar`** : Implements the navigation bar for the application.
 
 > ***Services***
+> - **`services/`**: Includes services that handle business logic and API communication.
 >- **`todo.service.ts`** : Handles API interactions for Todo-related operations.
 >- **`user-settings.service.ts`** : Manages user settings in the application.
+
+> ***Shared***
+>- **`shared/`**: Contains shared resources like models and interfaces.
+>- **`interfaces/todo-dto.ts`**: Data Transfer Object interface for the Todo component.
+>- **`models/todo.model.ts`**: Defines the Todo model structure.
 
 > ***Routes***
 >- **`app.routes.ts`** : Defines the application's routes for navigation between components.
 
-> ***Data Models and Interfaces***
->- **`interfaces/todo-dto.ts`** : Data Transfer Object interface for the Todo component.
->- **`models/todo.model.ts`** : Defines the Todo model structure.
-
 > ***Generated API Client***
 >- **`generated/`** : Contains files automatically generated using Swagger Codegen to simplify interaction with the backend API.
->- These files were generated using: 
-> ```java -jar swagger-codegen-cli-3.0.63.jar generate -h```
 
 > ***Configuration Files***
 >- **`proxy.conf.json`** : Used for configuring a proxy to route API calls to the backend during development.

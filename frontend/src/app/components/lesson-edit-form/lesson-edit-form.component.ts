@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RouterLink, Router} from '@angular/router';
-import {UserSettingsService} from '../user-settings.service';
+import {UserSettingsService} from '../../services/user-settings.service';
 import {FormBuilder, FormsModule, ReactiveFormsModule, FormGroup, Validators} from '@angular/forms';
-import {LessonPackage} from '../app.component';
+import {LessonPackage} from '../../app.component';
 import {NgbTooltip} from '@ng-bootstrap/ng-bootstrap';
 import {NgIf} from '@angular/common';
 
