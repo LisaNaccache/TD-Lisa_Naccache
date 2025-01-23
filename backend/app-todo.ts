@@ -147,7 +147,7 @@ const jsDocOptions = {
             },
         },
     },
-    apis: ['app-todo.js'],
+    apis: ['app-todo.ts'],
 };
 
 const apiDoc = swaggerJsdoc(jsDocOptions);
