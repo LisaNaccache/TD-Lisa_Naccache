@@ -16,12 +16,8 @@ This project serves as the frontend part of the application. It is built with An
 ### Prerequisites
 - **Node.js**: v16 or higher
 - **Angular CLI**: v18.2.10
-  - Install it globally using:
-    ```bash
-    npm install -g @angular/cli@18.2.10
-    ```
-- **NPM**: Installed automatically with Node.js
-- **TypeScript**: v5.5.2
+- **NPM**
+- **TypeScript**
 
 ### Install dependencies
 - npm install
