@@ -1,5 +1,9 @@
 # Backend - Node.js API
 
+![Node.js](https://img.shields.io/badge/Node.js-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-red)
+
 ## Description
 
 This project serves as the backend part of an application using Node.js and Express to manage Todos and Learning Packages. It also includes Swagger documentation to ease API navigation.
@@ -55,6 +59,21 @@ npm run test-db
 
 ---
 
+## Features
+- CRUD operations for Todos and Learning Packages.
+- Swagger documentation for API navigation.
+- Database synchronization with PostgreSQL.
+
+---
+
 ## Diagram
 
 ![](schema_table.png)
+
+---
+
+## Example Request
+
+**Get all learing package :**
+
+> curl -X GET http://localhost:3000/api/package
