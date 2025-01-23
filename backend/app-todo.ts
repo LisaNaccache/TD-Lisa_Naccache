@@ -5,6 +5,7 @@ import swaggerUi = require('swagger-ui-express');
 
 import LearningPackage from './models/LearningPackage';
 import LearningFact from "./models/LearningFact";
+
 const cors = require('cors');
 
 const app = express();
@@ -143,6 +144,26 @@ const jsDocOptions = {
                         },
                     },
                 },
+                LearningFact: {
+                    type: 'object',
+                    properties: {
+                        id: {type: 'integer'},
+                        timesReviewed: {type: 'integer'},
+                        confidenceLevel: {type: 'integer'},
+                        lastReviewedDate: {type: 'string', format: 'date'},
+                        packageId: {type: 'integer'},
+                        disabled: {type: 'boolean'}
+                    }
+                },
+                LearningFactNoId: {
+                    type: 'object',
+                    properties: {
+                        timesReviewed: {type: 'integer'},
+                        confidenceLevel: {type: 'integer'},
+                        lastReviewedDate: {type: 'string', format: 'date'},
+                        packageId: {type: 'integer'}
+                    }
+                }
             },
         },
     },
@@ -371,9 +392,6 @@ app.get('/api/package', async (req: Request, res: Response) => {
         res.status(500).json({error: 'Internal server error.'});
     }
 });
-/*app.get('/api/package', (req, res) => {
-    res.status(200).json(learningPackages);
-});*/
 
 /**
  * @openapi
@@ -409,17 +427,6 @@ app.get('/api/package/:id', async (req: Request, res: Response) => {
         res.status(500).json({error: 'Internal server error.'});
     }
 });
-/*app.get('/api/package/:id', (req, res) => {
-    const id = +req.params['id']
-    console.log('handle http GET /api/package/:id', id);
-    const idx = learningPackages.findIndex((x) => x.id === id);
-    if (idx !== -1) {
-        const found = learningPackages[idx];
-        res.send(found);
-    } else {
-        res.status(404).send('Learning Package entity not found by id:' + id);
-    }
-});*/
 
 /**
  * @openapi
@@ -447,13 +454,6 @@ app.post('/api/package', async (req: Request, res: Response) => {
         res.status(400).json({error: 'Error during validation or creation.'});
     }
 });
-/*app.post('/api/package', (req: Request, res: Response) => {
-    let item = <LearningPackage>req.body;
-    console.log('handle http POST /api/package', item);
-    item.id = newId();
-    learningPackages.push(item);
-    res.send(item);
-});*/
 
 /**
  * @openapi
@@ -525,34 +525,6 @@ app.put('/api/package/:id', async (req: Request, res: Response) => {
         res.status(500).json({error: 'Internal server error.'});
     }
 });
-/*app.put('/api/package', (req: Request, res: Response) => {
-    let item = <LearningPackage>req.body;
-    console.log('handle http PUT /api/package', item);
-    const id = item.id;
-    const idx = learningPackages.findIndex((x) => x.id === id);
-    if (idx !== -1) {
-        const found = learningPackages[idx];
-        if (item.title) {
-            found.title = item.title;
-        }
-        if (item.description) {
-            found.description = item.description;
-        }
-        if (item.category) {
-            found.category = item.category;
-        }
-        if (item.targetAudience) {
-            found.targetAudience = item.targetAudience;
-        }
-        if (item.difficulty) {
-            found.difficulty = item.difficulty;
-        }
-        res.send(found);
-    } else {
-        res.status(404).send('Learning Package entity not found by id:' + id);
-    }
-});
-*/
 
 /**
  * @openapi
@@ -569,15 +541,166 @@ app.put('/api/package/:id', async (req: Request, res: Response) => {
  *               items:
  *                 $ref: '#/components/schemas/LearningPackage'
  */
-/*app.get('/api/package-summaries', (req, res) => {
-    const packageSummaries = learningPackages.map(item => ({
-        id: item.id,
-        title: item.title,
-    }));
-    res.status(200).json(packageSummaries);
-});*/
+
 
 // Endpoint LearningFact
+
+/**
+ * @openapi
+ * /api/fact:
+ *   get:
+ *     description: Get all LearningFacts
+ *     responses:
+ *       200:
+ *         description: An array of LearningFacts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/LearningFact'
+ */
+app.get('/api/fact', async (req: Request, res: Response) => {
+    try {
+        const facts = await LearningFact.findAll();
+        res.status(200).json(facts);
+    } catch (err) {
+        console.error('Error retrieving LearningFacts:', err);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+});
+
+
+/**
+ * @openapi
+ * /api/package/{id}/fact:
+ *   post:
+ *     description: Create and add a new LearningFact to a given package
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: The ID of the Learning Package
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserLearningFactNoId'
+ *     responses:
+ *       201:
+ *         description: LearningFact created successfully
+ *       400:
+ *         description: Invalid data or package not found
+ */
+app.post('/api/package/:id/fact', async (req: Request, res: Response) => {
+    try {
+        const packageId = +req.params.id;
+        const learningPackage = await LearningPackage.findByPk(packageId);
+
+        if (!learningPackage) {
+            res.status(400).json({error: `Package with ID ${packageId} not found.`});
+        }
+
+        const newFact = await LearningFact.create({...req.body, packageId});
+        res.status(201).json(newFact);
+    } catch (err) {
+        console.error('Error creating LearningFact:', err);
+        res.status(400).json({error: 'Error during creation.'});
+    }
+});
+
+/**
+ * @openapi
+ * /api/package/{id}/fact:
+ *   put:
+ *     description: Update an existing LearningFact of a given package
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: The ID of the Learning Package
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserLearningFact'
+ *     responses:
+ *       200:
+ *         description: LearningFact updated successfully
+ *       400:
+ *         description: Invalid data or LearningFact not found
+ */
+app.put('/api/package/:id/fact', async (req: Request, res: Response) => {
+    try {
+        const packageId = +req.params.id;
+        const {id, ...data} = req.body;
+
+        const learningFact = await LearningFact.findOne({where: {id, packageId}});
+
+        if (!learningFact) {
+            res.status(400).json({error: 'LearningFact not found or invalid package ID.'});
+        }
+
+        if (learningFact) {
+            await learningFact.update(data);
+        }
+        res.status(200).json(learningFact);
+    } catch (err) {
+        console.error('Error updating LearningFact:', err);
+        res.status(500).json({error: 'Internal server error.'});
+    }
+});
+
+/**
+ * @openapi
+ * /api/package/{id}/fact:
+ *   delete:
+ *     description: Delete or disable an existing LearningFact
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: The ID of the Learning Package
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserLearningFact'
+ *     responses:
+ *       200:
+ *         description: LearningFact marked as disabled
+ *       400:
+ *         description: LearningFact not found
+ */
+app.delete('/api/package/:id/fact', async (req: Request, res: Response) => {
+    try {
+        const packageId = +req.params.id;
+        const {id} = req.body;
+
+        const learningFact = await LearningFact.findOne({where: {id, packageId}});
+
+        if (!learningFact) {
+            res.status(400).json({error: 'LearningFact not found or invalid package ID.'});
+        }
+
+        if (learningFact) {
+            await learningFact.update({disabled: true});
+        }
+        res.status(200).json({message: 'LearningFact successfully disabled.'});
+    } catch (err) {
+        console.error('Error disabling LearningFact:', err);
+        res.status(500).json({error: 'Internal server error.'});
+    }
+});
 
 
 // app.patch()

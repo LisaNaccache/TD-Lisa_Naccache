@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../database';
-import LearningPackage from './LearningPackage';
+import LearningPackage from "./LearningPackage";
 
 const LearningFact = sequelize.define('LearningFact', {
     id: {
@@ -21,6 +21,10 @@ const LearningFact = sequelize.define('LearningFact', {
     lastReviewedDate: {
         type: DataTypes.DATE,
         allowNull: true,
+    },
+    packageId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
 });
 

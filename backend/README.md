@@ -60,7 +60,7 @@ npm run test-db
 ---
 
 ## Features
-- CRUD operations for Todos and Learning Packages.
+- CRUD operations for Todos and Learning Packages and Learning Fact.
 - Swagger documentation for API navigation.
 - Database synchronization with PostgreSQL.
 
